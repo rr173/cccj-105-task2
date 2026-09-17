@@ -3,30 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>多人协作文档</title>
+<title>多人协作文档 · 成员治理</title>
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header>
   <h1>多人协作文档</h1>
   <div class="meta">
+    <label class="myname">我
+      <input id="myName" maxlength="64" title="你的显示名（重命名后会同步给成员表）">
+    </label>
+    <span id="roleBadge" class="role-badge role-none">未加入</span>
     <span id="presence">—</span>
     <span id="status"><span id="dot"></span><span id="statusText">连接中…</span></span>
   </div>
 </header>
 
 <div id="toolbar">
-  <button data-fmt="bold" title="加粗"><b>B</b></button>
-  <button data-fmt="italic" title="斜体"><i>I</i></button>
-  <button data-fmt="underline" title="下划线"><u>U</u></button>
+  <button data-fmt="bold" title="加粗（编辑者/所有者）"><b>B</b></button>
+  <button data-fmt="italic" title="斜体（编辑者/所有者）"><i>I</i></button>
+  <button data-fmt="underline" title="下划线（编辑者/所有者）"><u>U</u></button>
   <span class="sep"></span>
-  <button id="commentBtn">💬 评论选中文字</button>
+  <button id="commentBtn" title="评论者/编辑者/所有者可用">💬 评论选中文字</button>
   <span id="hint"></span>
 </div>
 
 <main>
   <div id="editor" contenteditable="true" spellcheck="false"></div>
   <aside>
+    <section id="membersSec">
+      <h2>成员与角色</h2>
+      <div id="memberList"></div>
+      <div id="inviteBox" class="hidden">
+        <div class="invite-title">邀请新成员（按用户 ID）</div>
+        <input id="inviteUid" placeholder="用户 ID（如 u-xxxx）" maxlength="64">
+        <input id="inviteName" placeholder="显示名（可选）" maxlength="64">
+        <select id="inviteRole">
+          <option value="editor">编辑者</option>
+          <option value="commenter">评论者</option>
+          <option value="viewer">只读者</option>
+          <option value="owner">所有者</option>
+        </select>
+        <button id="inviteBtn">邀请 / 调整角色</button>
+      </div>
+    </section>
+    <section id="quarantineSec" class="hidden">
+      <h2>⚠ 隔离草稿（被拒绝的批次）</h2>
+      <div id="quarantineList"></div>
+    </section>
     <section>
       <h2>评论</h2>
       <div id="newComment" class="hidden">
@@ -44,9 +68,14 @@
       <h2>修订时间线</h2>
       <div id="revs"></div>
     </section>
+    <section>
+      <h2>审计台账</h2>
+      <div id="auditList"></div>
+    </section>
   </aside>
 </main>
 
+<script src="/shared/gov.js"></script>
 <script src="/shared/crdt.js"></script>
 <script src="/app.js"></script>
 </body>
