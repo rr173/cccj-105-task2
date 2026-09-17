@@ -63,6 +63,14 @@
     _nextId() { return this.actor + ':' + (++this.counter); }
     _kidsOf(p) { let k = this.kids.get(p); if (!k) { k = []; this.kids.set(p, k); } return k; }
 
+    // 清空本地状态（本地乐观操作被服务端隔离后，需从已确认操作重建文档）
+    clear() {
+      this.chars.clear(); this.kids.clear();
+      this.marks.clear(); this.comments.clear();
+      this.waiting.length = 0;
+      return this;
+    }
+
     // ---------- 本地操作：应用到本地并返回可广播的 op ----------
     insert(afterId, ch) {
       const op = { t: 'ins', id: this._nextId(), after: afterId || ROOT, ch, by: this.actor };
