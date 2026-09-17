@@ -1,0 +1,89 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f4f5f7; color: #1f2329; height: 100vh; display: flex; flex-direction: column;
+}
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px; background: #fff; border-bottom: 1px solid #e3e5e8;
+}
+header h1 { font-size: 17px; margin: 0; }
+header .meta { display: flex; gap: 16px; font-size: 13px; color: #666; align-items: center; }
+#dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #f5222d; margin: 0 6px 0 0; vertical-align: middle; }
+#status.online #dot { background: #52c41a; }
+#status.offline #statusText { color: #f5222d; }
+
+#toolbar {
+  display: flex; gap: 6px; align-items: center;
+  padding: 8px 20px; background: #fff; border-bottom: 1px solid #e3e5e8;
+}
+#toolbar button {
+  border: 1px solid #d0d3d9; background: #fff; border-radius: 6px;
+  padding: 4px 12px; cursor: pointer; font-size: 14px;
+}
+#toolbar button:hover { background: #f0f1f3; }
+#toolbar .sep { width: 1px; height: 20px; background: #e3e5e8; margin: 0 6px; }
+#hint { font-size: 12px; color: #fa8c16; margin-left: 8px; }
+
+main { flex: 1; display: flex; min-height: 0; }
+#editor {
+  flex: 1; margin: 20px; padding: 28px 32px; background: #fff; border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06); outline: none; overflow-y: auto;
+  white-space: pre-wrap; word-break: break-word; font-size: 15px; line-height: 1.8;
+}
+#editor:empty::before { content: '在这里输入，支持断网编辑…'; color: #aab; }
+#editor .b { font-weight: 700; }
+#editor .i { font-style: italic; }
+#editor .u { text-decoration: underline; }
+#editor .chl { border-bottom: 2px solid; cursor: pointer; }
+#editor .cs-anchored { background: #fff7e6; border-color: #ffa940; }
+#editor .cs-split-insert, #editor .cs-split-delete, #editor .cs-changed { background: #fff1f0; border-color: #f5222d; }
+
+aside {
+  width: 340px; margin: 20px 20px 20px 0; display: flex; flex-direction: column; gap: 14px; min-height: 0;
+}
+aside section {
+  background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  padding: 14px 16px; overflow-y: auto; flex: 1; min-height: 0;
+}
+aside h2 { font-size: 14px; margin: 0 0 10px; color: #444; }
+.hidden { display: none !important; }
+
+#newComment { border: 1px solid #ffd591; background: #fffbe8; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
+.nc-quote-label { font-size: 12px; color: #888; }
+#ncQuote { font-size: 13px; background: #fff7e6; padding: 4px 8px; border-radius: 4px; margin: 4px 0 8px; word-break: break-word; }
+#ncText { width: 100%; resize: vertical; font-size: 13px; padding: 6px 8px; border: 1px solid #d0d3d9; border-radius: 6px; }
+#newComment .row { margin-top: 8px; display: flex; gap: 8px; }
+button { font-family: inherit; }
+#newComment button, .card button, .rev button {
+  border: 1px solid #d0d3d9; background: #fff; border-radius: 6px; padding: 3px 10px;
+  cursor: pointer; font-size: 12px;
+}
+#newComment button:hover, .card button:hover, .rev button:hover { background: #f0f1f3; }
+#ncSubmit { background: #1677ff !important; color: #fff; border-color: #1677ff !important; }
+button.ghost { color: #888; }
+
+.card { border: 1px solid #ececec; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; font-size: 13px; }
+.card.flash { outline: 2px solid #1677ff; }
+.card .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.card .who { color: #1677ff; font-weight: 600; }
+.card .time { color: #aaa; font-size: 11px; }
+.badge { display: inline-block; font-size: 11px; border-radius: 4px; padding: 1px 6px; margin-left: 6px; }
+.badge.ok { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+.badge.warn { background: #fff7e6; color: #d48806; border: 1px solid #ffd591; }
+.badge.bad { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
+.badge.muted { background: #f5f5f5; color: #999; border: 1px solid #e0e0e0; }
+.card .quote { background: #f6f8fa; border-left: 3px solid #d0d3d9; padding: 4px 8px; margin: 6px 0; color: #555; word-break: break-word; }
+.card .cur { background: #fff7e6; border-left: 3px solid #ffa940; padding: 4px 8px; margin: 6px 0; word-break: break-word; }
+.card .cur .lbl, .card .quote .lbl { display: block; font-size: 11px; color: #999; }
+.card .ctext { margin: 6px 0; white-space: pre-wrap; word-break: break-word; }
+.card .ops { display: flex; gap: 6px; margin-top: 6px; }
+.empty { color: #aaa; font-size: 12px; text-align: center; padding: 12px 0; }
+
+.rev { border-bottom: 1px solid #f0f0f0; padding: 8px 2px; font-size: 12px; display: flex; gap: 8px; align-items: baseline; }
+.rev:last-child { border-bottom: none; }
+.rev .n { color: #1677ff; font-weight: 700; white-space: nowrap; }
+.rev .body { flex: 1; min-width: 0; }
+.rev .sum { color: #333; }
+.rev .sub { color: #999; font-size: 11px; margin-top: 2px; }
+.rev .kind-restore { color: #722ed1; font-weight: 600; }
